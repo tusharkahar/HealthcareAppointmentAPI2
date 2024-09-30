@@ -46,16 +46,25 @@ namespace Application.Application
 
             return tokenHandler.WriteToken(token);
         }
-
-        public string GenerateRefreshToken()
+        
+        public RefreshToken GenerateRefreshToken()
         {
-            var randomNumber = new byte[64];
-            using (var rng = RandomNumberGenerator.Create())
+            return new RefreshToken
             {
-                rng.GetBytes(randomNumber);
-                return Convert.ToBase64String(randomNumber);
-            }
-        }
+                Token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(64)),
+                ExpiryDate = DateTime.Now.AddDays(7)  // Refresh token expiration time
+            };
+        }       
+        
+        public bool ValidateRefreshToken(string refreshToken)
+        {
+            // Logic to validate the refresh token and check expiry
+            return true;
+        }        
     }
-
+    public class RefreshToken
+    {
+        public string Token { get; set; }
+        public DateTime ExpiryDate { get; set; }
+    }
 }
