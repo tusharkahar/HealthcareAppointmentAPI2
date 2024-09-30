@@ -1,3 +1,4 @@
+using API.Middleware;
 using AspNetCoreRateLimit;
 using Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -43,6 +44,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseMiddleware<ErrorHandlingMiddleware>();
 app.UseIpRateLimiting();
 app.UseHttpsRedirection();
 
