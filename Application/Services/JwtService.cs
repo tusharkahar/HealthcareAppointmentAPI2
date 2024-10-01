@@ -10,7 +10,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Application
+namespace Application.Services
 {
     public class JwtService
     {
@@ -46,7 +46,7 @@ namespace Application.Application
 
             return tokenHandler.WriteToken(token);
         }
-        
+
         public RefreshToken GenerateRefreshToken()
         {
             return new RefreshToken
@@ -54,13 +54,13 @@ namespace Application.Application
                 Token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(64)),
                 ExpiryDate = DateTime.Now.AddDays(7)  // Refresh token expiration time
             };
-        }       
-        
+        }
+
         public bool ValidateRefreshToken(string refreshToken)
         {
             // Logic to validate the refresh token and check expiry
             return true;
-        }        
+        }
     }
     public class RefreshToken
     {
